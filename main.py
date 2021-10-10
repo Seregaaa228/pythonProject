@@ -36,15 +36,16 @@ class Human(object):
         return f"Его зовут {self.name} - {self.age} возраст, он катается на {self.current_car}, Гараж из {len(self.cars)} машин(ы) "
 
 
+quantiny1 = random.randint(1, 8)
+quantiny2 = 9 - quantiny1
+garage1 = [Car.create_random() for _ in range(quantiny1)]
+garage2 = [Car.create_random() for _ in range(quantiny2)]
+
+human1 = Human(name="Valera", age=54, current_car=random.choice(garage1), cars=garage1)
+human2 = Human(name="Denis", age=27, current_car=random.choice(garage2), cars=garage2)
+
+
 def main() -> None:
-    quantiny1 = random.randint(1, 8)
-    quantiny2 = 9 - quantiny1
-    garage1 = [Car.create_random() for _ in range(quantiny1)]
-    garage2 = [Car.create_random() for _ in range(quantiny2)]
-
-    human1 = Human(name="Valera", age=54, current_car=random.choice(garage1), cars=garage1)
-    human2 = Human(name="Denis", age=27, current_car=random.choice(garage2), cars=garage2)
-
     choice = input(f"1 - {human1.name} , 2 - {human2.name} выберите номер - ")
 
     match int(choice):
@@ -56,6 +57,8 @@ def main() -> None:
             choiceCar = input(f"на какой машинке поедет {human2.name} выберите по номеру от 0 до {quantiny2} - ")
             human2.current_car = garage2[int(choiceCar)]
             print(f'{human2.name} поедет на машине {human2.current_car}')
+        case _:
+            print("Ошибка нету такого ")
 
 
 if __name__ == "__main__":
