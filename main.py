@@ -35,31 +35,39 @@ class Human(object):
     def __str__(self):
         return f"Его зовут {self.name} - {self.age} возраст, он катается на {self.current_car}, Гараж из {len(self.cars)} машин(ы) "
 
+    @classmethod
+    def create_human(cls, name: str, age: int):
+        garage = [Car.create_random() for _ in range(random.randint(1, 9))]
+        return Human(name=name, age=age, current_car=random.choice(garage), cars=garage)
+
 
 def main() -> None:
-    quantiny1 = random.randint(1, 8)
-    quantiny2 = 9 - quantiny1
-    garage1 = [Car.create_random() for _ in range(quantiny1)]
-    garage2 = [Car.create_random() for _ in range(quantiny2)]
-
-    human1 = Human(name="Valera", age=54, current_car=random.choice(garage1), cars=garage1)
-    human2 = Human(name="Denis", age=27, current_car=random.choice(garage2), cars=garage2)
-    while True:
+    try:
+        human1 = Human.create_human("Valera", 54)
+        human2 = Human.create_human("Denis", 27)
         choice = input(f"1 - {human1.name} , 2 - {human2.name} выберите номер - ")
+        while True:
+            match int(choice):
 
-        match int(choice):
-            case 1:
-                choiceCar = input(f"на какой машинке поедет {human1.name} выберите по номеру от 0 до {quantiny1} - ")
-                human1.current_car = garage1[int(choiceCar)]
-                print(f'{human1.name} поедет на машине {human1.current_car}')
-                break
-            case 2:
-                choiceCar = input(f"на какой машинке поедет {human2.name} выберите по номеру от 0 до {quantiny2} - ")
-                human2.current_car = garage2[int(choiceCar)]
-                print(f'{human2.name} поедет на машине {human2.current_car}')
-                break
-            case _:
-                print("Ошибка нету такого ")
+
+                case 1:
+                    choiceCar = input(
+                        f"на какой машинке поедет {human1.name} выберите по номеру от 0 до {len(human1.cars)} - ")
+                    human1f.current_car = human1.cars[int(choiceCar) - 1]
+                    print(f'{human1.name} поедет на машине {human1.current_car}')
+                    break
+                case 2:
+                    choiceCar = input(
+                        f"на какой машинке поедет {human2.name} выберите по номеру от 0 до {len(human2.cars)} - ")
+                    human2.current_car = human2.cars[int(choiceCar) - 1]
+                    print(f'{human2.name} поедет на машине {human2.current_car}')
+                    break
+                case _:
+                    print("Ошибка нету такого ")
+                    break
+
+    except ValueError:
+        print("Вы ввели не число")
 
 
 if __name__ == "__main__":
